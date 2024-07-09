@@ -1,3 +1,24 @@
-<h2>Olympic games app</h2>
-<hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
+<div class="wrapper">
+  <app-header [canBack]="false" [title]="'Medals per Country'" />
+  @if ((homePageData$ | async); as data) {
+  <app-stats-labels-bar [statsLabels]="data.statsLabels" />
+  <div class="graph-container">
+    <ngx-charts-pie-chart
+      [scheme]="colorScheme"
+      [results]="data.pieChartDataList"
+      [labels]="showLabels"
+      [animations]="false"
+      (select)="onSelect($event)"
+    >
+      <ng-template #tooltipTemplate let-model="model">
+        <div class="chart-tooltip">
+          <span>{{ model.name }}</span>
+          <span><i class="fa-solid fa-award"></i> {{ model.value }}</span>
+        </div>
+      </ng-template>
+    </ngx-charts-pie-chart>
+  </div>
+  } @else {
+  <p>No data available</p>
+  }
+</div>

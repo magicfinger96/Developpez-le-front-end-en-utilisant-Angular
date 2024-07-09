@@ -1,0 +1,23 @@
+<div class="wrapper">
+  @if ((detailPageData$ | async); as detail) {
+  <app-header [canBack]="true" [title]="detail.countryName" />
+  <app-stats-labels-bar [statsLabels]="detail.statsLabels" />
+  <div class="graph-container">
+    <ngx-charts-line-chart
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisTicks]="xAxisTicks"
+      [xAxisTickFormatting]="xAxisTickFormatting"
+      [xAxis]="xAxis"
+      [yAxis]="yAxis"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [results]="detail.lineChartData"
+    >
+    </ngx-charts-line-chart>
+  </div>
+  } @else {
+  <app-header [canBack]="true" />
+  <p>No data available</p>
+  }
+</div>
